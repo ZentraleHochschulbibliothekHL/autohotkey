@@ -1,15 +1,8 @@
 
 WBGet(WinTitle="ahk_class IEFrame", Svr#=1) {
-
-    ; WBGet function for AHK v1.1
-    ; Based on ComObjQuery docs
-
    static msg := DllCall("RegisterWindowMessage", "str", "WM_HTML_GETOBJECT")
-        , IID := "{0002DF05-0000-0000-C000-000000000046}" ; IID_IWebBrowserApp
-      ; , IID := "{332C4427-26CB-11D0-B483-00C04FD90119}" ; IID_IHTMLWindow2
-
+   IID := "{0002DF05-0000-0000-C000-000000000046}"
    SendMessage msg, 0, 0, Internet Explorer_Server%Svr#%, %WinTitle%
-
    if (ErrorLevel != "FAIL") {
       lResult:=ErrorLevel, VarSetCapacity(GUID,16,0)
       if (DllCall("ole32\CLSIDFromString", "wstr", "{332C4425-26CB-11D0-B483-00C04FD90119}", "ptr", &GUID) >= 0) {
